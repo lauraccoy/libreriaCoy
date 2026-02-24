@@ -1,0 +1,43 @@
+<section th:fragment="contenido" class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="mb-4 text-center">Iniciar sesión</h2>
+
+          <div th:if="${param.error}" class="alert alert-danger">
+            Usuario o contraseña incorrectos.
+          </div>
+          <div th:if="${param.logout}" class="alert alert-success">
+            Has cerrado sesión correctamente.
+          </div>
+
+          <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <!-- CLAVE: name="username" -->
+			  <input type="email" name="username" class="form-control"
+			         required autocomplete="username">
+
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Contraseña</label>
+			  <input type="password" name="password" class="form-control"
+			         required autocomplete="current-password">
+
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Entrar</button>
+          </form>
+
+          <hr class="my-4">
+
+          <p class="mb-0 text-center">
+            ¿No tienes cuenta? <a th:href="@{/register}">Crear cuenta</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

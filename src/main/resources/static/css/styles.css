@@ -1,0 +1,15 @@
+/* Pequeños ajustes sin “romper” Bootstrap */
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+.hero {
+  border-radius: 18px;
+  padding: 48px 32px;
+  color: #fff;
+  background: linear-gradient(180deg,#1f4d3a,#2b6b4b);
+}
+
+.card-img-top {
+  height: 230px;
+  object-fit: cover;
+  background: #f2f2f2;
+}

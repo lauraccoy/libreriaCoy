@@ -1,0 +1,104 @@
+<!-- Este archivo define el contenido de la página de detalles de un producto. -->
+<!-- Muestra información completa de un producto específico. -->
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="contenido">
+
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a th:href="@{/}">Inicio</a></li>
+      <li class="breadcrumb-item"><a th:href="@{/catalogo}">Catálogo</a></li>
+      <li class="breadcrumb-item active" th:text="${detalle != null ? detalle.titulo : 'Producto'}">Producto</li>
+    </ol>
+  </nav>
+
+  <div class="row g-4 mb-5">
+    <div class="col-12 col-lg-5">
+      <div class="card border-0 shadow-lg rounded-4 overflow-hidden sticky-top" style="top: 80px;">
+        <div style="background: linear-gradient(135deg, #f8f7f3, #e8e6e0);">
+			<img class="w-100 d-block"
+			     th:alt="${detalle != null ? detalle.titulo : 'Producto'}"
+			     th:src="${detalle != null and detalle.img != null
+			              ? (#strings.startsWith(detalle.img,'http') ? detalle.img : '/' + detalle.img)
+			              : 'https://placehold.co/600x800?text=Sin+imagen'}"
+			     onerror="this.onerror=null;this.src='https://placehold.co/600x800?text=Sin+imagen';"
+			     style="max-height: 500px; object-fit: contain; padding: 20px;" />
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-7">
+      <div>
+        <div class="mb-3">
+          <span class="badge bg-primary me-2" th:text="${detalle != null ? detalle.tipo : 'Tipo'}">Tipo</span>
+          <span class="badge bg-secondary" th:text="${detalle != null ? detalle.categoria : 'Categoría'}">Categoría</span>
+        </div>
+
+        <h1 class="fw-bold mb-3" th:text="${detalle != null ? detalle.titulo : 'Título del Producto'}">Título del Producto</h1>
+
+        <div class="mb-3">
+          <div class="d-flex align-items-center gap-2">
+            <span class="text-warning">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </span>
+            <span class="text-muted">(45 reseñas)</span>
+          </div>
+        </div>
+
+        <div class="card border-0 bg-light rounded-3 p-4 mb-4">
+          <div class="price-tag mb-2" th:text="${detalle != null ? '€ ' + #numbers.formatDecimal(detalle.precio, 1, 2) : '€ 0.00'}">€ 0.00</div>
+          <small class="text-success"><i class="fas fa-check-circle me-1"></i>Stock disponible</small>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-3 p-4 mb-4">
+          <h5 class="fw-bold mb-3">Información del Producto</h5>
+
+          <div th:if="${detalle != null and detalle.autor != null}" class="row mb-3">
+            <div class="col-5 text-muted">Autor:</div>
+            <div class="col-7 fw-semibold" th:text="${detalle.autor}"></div>
+          </div>
+
+          <div th:if="${detalle != null and detalle.editorial != null}" class="row mb-3">
+            <div class="col-5 text-muted">Editorial:</div>
+            <div class="col-7 fw-semibold" th:text="${detalle.editorial}"></div>
+          </div>
+
+          <div th:if="${detalle != null and detalle.marca != null}" class="row mb-3">
+            <div class="col-5 text-muted">Marca:</div>
+            <div class="col-7 fw-semibold" th:text="${detalle.marca}"></div>
+          </div>
+
+          <div th:if="${detalle != null and detalle.franquicia != null}" class="row mb-3">
+            <div class="col-5 text-muted">Franquicia:</div>
+            <div class="col-7 fw-semibold" th:text="${detalle.franquicia}"></div>
+          </div>
+
+          <div th:if="${detalle != null and detalle.isbn != null}" class="row">
+            <div class="col-5 text-muted">ISBN:</div>
+            <div class="col-7 fw-semibold" th:text="${detalle.isbn}"></div>
+          </div>
+        </div>
+
+        <form th:action="@{/carrito/add}" method="post" class="d-grid gap-2">
+          <input type="hidden" name="tipo" th:value="${tipo}" />
+          <input type="hidden" name="id" th:value="${id}" />
+
+          <div class="input-group mb-2" style="max-width: 180px;">
+            <input type="number" name="cantidad" value="1" min="1" class="form-control" />
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-shopping-cart me-2"></i>Agregar al Carrito
+            </button>
+          </div>
+
+          <a th:href="@{/catalogo}" class="btn btn-outline-primary btn-lg rounded-3">
+            <i class="fas fa-arrow-left me-2"></i>Volver al Catálogo
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

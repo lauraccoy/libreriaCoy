@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+  catalogo.html
+  -----------
+  Vista "Catálogo Completo". Lista una colección mixta de productos
+  (libros, cómics, papelería y geek) usando el DTO ItemCatalogo.
+
+  Variables esperadas en el Model:
+  - productos : List<ItemCatalogo>
+
+  Thymeleaf clave:
+  - th:each="p : ${productos}" recorre productos.
+  - th:text imprime texto escapado (evita XSS).
+  - th:href="@{...}" construye URLs.
+  - th:src="${p.imagenUrl}" usa el método getImagenUrl() del DTO
+    para obtener una ruta web válida (por ejemplo /portadas/xxx.jpg).
+-->
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<section th:fragment="contenido">
+
+  <div class="d-flex align-items-end justify-content-between mb-3">
+    <div>
+      <h1 class="fw-bold mb-1">Catálogo Completo</h1>
+      <div class="text-muted">Explora nuestros <span th:text="${#lists.size(productos)}">0</span> productos disponibles</div>
+    </div>
+  </div>
+
+  <!-- Filtros (si ya los tienes, déjalos) -->
+  <div class="mb-4">
+    <a class="btn btn-primary btn-sm me-2" th:href="@{/catalogo}">Todos</a>
+    <a class="btn btn-outline-primary btn-sm me-2" th:href="@{/libros}">Libros</a>
+    <a class="btn btn-outline-primary btn-sm me-2" th:href="@{/comics}">Cómics</a>
+    <a class="btn btn-outline-primary btn-sm me-2" th:href="@{/papeleria}">Papelería</a>
+    <a class="btn btn-outline-primary btn-sm" th:href="@{/geek}">Geek</a>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-sm-6 col-lg-3" th:each="p : ${productos}">
+      <div class="card h-100 shadow-sm rounded-4 overflow-hidden">
+
+        <img class="card-img-top"
+             th:src="${p.imagenUrl} != null ? @{${p.imagenUrl}} : ''"
+             alt="Imagen producto"
+             style="height: 220px; object-fit: cover;"/>
+
+        <div class="card-body">
+          <div class="small text-muted text-uppercase" th:text="${p.tipoProducto}">Tipo</div>
+          <div class="fw-bold" th:text="${p.nombre}">Título</div>
+
+          <div class="mt-2 fw-semibold"
+               th:text="${#numbers.formatDecimal(p.precio,1,'POINT',2,'COMMA')} + ' €'">0,00 €</div>
+        </div>
+
+        <div class="card-footer bg-white border-0 pt-0 pb-3 px-3">
+          <a class="btn btn-primary w-100" th:href="@{/detalle/{tipo}/{id}(tipo=${p.tipoProducto},id=${p.id})}">
+            Ver detalle
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-info mt-4" th:if="${productos == null or #lists.isEmpty(productos)}">
+    No hay productos disponibles
+  </div>
+
+</section>
+</body>
+</html>

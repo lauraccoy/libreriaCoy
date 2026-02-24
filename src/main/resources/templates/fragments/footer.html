@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+  fragments/footer.html
+  ---------------------
+  Fragmento reutilizable del pie de página.
+
+  - th:fragment="footer" define el nombre del fragmento.
+    En layout.html se inserta con: th:replace="~{fragments/footer :: footer}"
+  - No necesita datos del Model (es estático), así que es ideal como fragmento.
+-->
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <footer th:fragment="footer" class="mt-5 text-white" style="background:#1f4d3a;">
+    <div class="container py-4">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="fw-bold mb-2"><i class="bi bi-book me-2"></i>Librería Coy</div>
+          <div class="text-white-50">Tu tienda de confianza para libros, cómics, papelería y cultura geek.</div>
+        </div>
+        <div class="col-md-3">
+          <div class="fw-bold mb-2">Categorías</div>
+          <ul class="list-unstyled mb-0">
+            <li><a class="link-light text-decoration-none" th:href="@{/libros}">Libros</a></li>
+            <li><a class="link-light text-decoration-none" th:href="@{/comics}">Cómics</a></li>
+            <li><a class="link-light text-decoration-none" th:href="@{/papeleria}">Papelería</a></li>
+            <li><a class="link-light text-decoration-none" th:href="@{/geek}">Geek</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <div class="fw-bold mb-2">Contacto</div>
+          <div class="text-white-50"><i class="bi bi-envelope me-2"></i>info@libreriacoy.es</div>
+          <div class="text-white-50"><i class="bi bi-telephone me-2"></i>+34 912 345 678</div>
+          <div class="text-white-50"><i class="bi bi-geo-alt me-2"></i>Madrid, España</div>
+        </div>
+      </div>
+
+      <hr class="border-light opacity-25 my-4" />
+      <div class="text-center text-white-50 small">© 2026 Librería Coy. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+</body>
+</html>

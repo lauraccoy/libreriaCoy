@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="contenido">
+
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="h3 mb-0">Blog</h1>
+    <span class="text-muted">Noticias, reseñas y recomendaciones</span>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-4" th:each="p : ${posts}">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h2 class="h5 card-title" th:text="${p.titulo}">Título</h2>
+          <p class="card-text text-muted" th:text="${p.resumen}">Resumen</p>
+          <a class="btn btn-outline-success btn-sm"
+             th:href="@{/blog/{slug}(slug=${p.slug})}">
+            Leer más
+          </a>
+        </div>
+        <div class="card-footer bg-white border-0 text-muted small">
+          <i class="bi bi-calendar3 me-1"></i>
+          <span th:text="${#temporals.format(p.createdAt, 'dd/MM/yyyy')}">01/01/2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-info mt-4" th:if="${#lists.isEmpty(posts)}">
+    Aún no hay artículos publicados.
+  </div>
+
+</div>
+
+</body>
+</html>

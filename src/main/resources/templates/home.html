@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+  home.html
+  ---------
+  Vista de inicio.
+
+  OJO: Esta vista se renderiza dentro de layout.html.
+  Por eso aquí definimos SOLO el fragmento th:fragment="contenido".
+
+  Thymeleaf rápido:
+  - th:fragment="contenido" -> nombre del fragmento que layout.html va a insertar.
+  - th:href="@{/ruta}" -> construye una URL correcta relativa al contexto (ej: /catalogo).
+-->
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<section th:fragment="contenido">
+
+  <!--
+    Fondo del HOME:
+    - Se crea una “superficie” de color con degradados suaves.
+    - Usamos estilos en línea para que sea fácil de ver, pero si prefieres,
+      puedes moverlo a /css/styles.css.
+  -->
+  <div class="p-4 p-md-5 rounded-4 shadow-sm mb-4"
+       style="background:
+          radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 45%),
+          radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18) 0%, rgba(255,215,0,0) 55%),
+          linear-gradient(135deg, #0f3d2e 0%, #1b5c43 50%, #0f3d2e 100%);
+          color: #fff;">
+
+    <h1 class="display-5 fw-bold mb-2">Bienvenido a Librería Coy</h1>
+    <p class="mb-3 opacity-75">Descubre libros, cómics, papelería y cultura geek en un solo lugar.</p>
+
+    <!-- Botón a /catalogo -->
+    <a class="btn btn-warning fw-semibold" th:href="@{/catalogo}">
+      <i class="bi bi-grid me-1"></i>Ver Catálogo
+    </a>
+  </div>
+
+  <!--
+    Bloque de “ventajas”
+    - Son tarjetas estáticas (no dependen de datos de BD)
+  -->
+  <div class="row text-center g-4 mb-4">
+    <div class="col-md-4">
+      <div class="p-3 bg-white rounded-4 shadow-sm">
+        <i class="bi bi-truck fs-2"></i>
+        <div class="fw-bold mt-2">Envío Rápido</div>
+        <div class="text-muted small">Envíos a toda España en 24-48 horas</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3 bg-white rounded-4 shadow-sm">
+        <i class="bi bi-shield-lock fs-2"></i>
+        <div class="fw-bold mt-2">Compra Segura</div>
+        <div class="text-muted small">Pago seguro y protección de datos</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3 bg-white rounded-4 shadow-sm">
+        <i class="bi bi-headset fs-2"></i>
+        <div class="fw-bold mt-2">Soporte 24/7</div>
+        <div class="text-muted small">Atención al cliente disponible</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="fw-bold mb-3">Nuestras categorías</h2>
+
+  <!--
+    Tarjetas de categorías:
+    - Cada tarjeta enlaza a su ruta.
+    - Visualmente se diferencian con un degradado.
+  -->
+  <div class="row g-4">
+
+    <div class="col-md-6">
+      <div class="card shadow-sm rounded-4 overflow-hidden">
+        <div class="p-5" style="background: linear-gradient(90deg,#5b7fff,#6f42c1);"></div>
+        <div class="card-body">
+          <div class="fw-bold fs-5">Libros</div>
+          <div class="text-muted">Narrativa, ensayo, infantil, ciencia ficción y mucho más.</div>
+          <a th:href="@{/libros}" class="btn btn-outline-dark mt-3">
+            <i class="bi bi-arrow-right me-1"></i>Ver Libros
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm rounded-4 overflow-hidden">
+        <div class="p-5" style="background: linear-gradient(90deg,#ff74c6,#ff5a76);"></div>
+        <div class="card-body">
+          <div class="fw-bold fs-5">Cómics</div>
+          <div class="text-muted">Manga, novela gráfica, superhéroes y más.</div>
+          <a th:href="@{/comics}" class="btn btn-outline-dark mt-3">
+            <i class="bi bi-arrow-right me-1"></i>Ver Cómics
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm rounded-4 overflow-hidden">
+        <div class="p-5" style="background: linear-gradient(90deg,#00c2ff,#0092ff);"></div>
+        <div class="card-body">
+          <div class="fw-bold fs-5">Papelería</div>
+          <div class="text-muted">Cuadernos, agendas, bolígrafos, sets de notas y más.</div>
+          <a th:href="@{/papeleria}" class="btn btn-outline-dark mt-3">
+            <i class="bi bi-arrow-right me-1"></i>Ver Papelería
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm rounded-4 overflow-hidden">
+        <div class="p-5" style="background: linear-gradient(90deg,#ffb020,#ff6a00);"></div>
+        <div class="card-body">
+          <div class="fw-bold fs-5">Geek</div>
+          <div class="text-muted">Merch, figuras, videojuegos, accesorios y cultura pop.</div>
+          <a th:href="@{/geek}" class="btn btn-outline-dark mt-3">
+            <i class="bi bi-arrow-right me-1"></i>Ver Geek
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+</body>
+</html>

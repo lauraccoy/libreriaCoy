@@ -1,0 +1,40 @@
+<section th:fragment="contenido" class="container my-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">Cómics</h1>
+    <span class="text-muted" th:text="${#lists.size(comics)} + ' resultados'">0 resultados</span>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12 col-sm-6 col-lg-4" th:each="comic : ${comics}">
+      <div class="card h-100 shadow-sm">
+
+        <img class="card-img-top"
+             th:src="@{/portadas/{p}(p=${comic.portada})}"
+             alt="Portada">
+
+        <div class="card-body">
+          <h5 class="card-title" th:text="${comic.titulo}">Título</h5>
+          <p class="card-text mb-1"><strong>Autor:</strong> <span th:text="${comic.autor}">Autor</span></p>
+          <p class="card-text mb-1"><strong>ISBN:</strong> <span th:text="${comic.isbn}">ISBN</span></p>
+          <p class="card-text fw-bold" th:text="${#numbers.formatDecimal(comic.precio,1,2)} + ' €'">0.00 €</p>
+        </div>
+
+        <div class="card-footer bg-white border-0 d-flex gap-2">
+          <a class="btn btn-primary w-100"
+             th:href="@{/detalle(tipo='COMIC', id=${comic.id})}">
+            Ver detalle
+          </a>
+
+          <form class="w-100" th:action="@{/carrito/add}" method="post">
+            <input type="hidden" name="tipo" value="COMIC">
+            <input type="hidden" name="id" th:value="${comic.id}">
+            <button type="submit" class="btn btn-outline-primary w-100">Añadir</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
